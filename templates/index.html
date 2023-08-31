@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post">
+  <div class="container">
+    <img src="static/images/ADmanage.png" alt="ADmanage">
+    <br><br>
+    <label for="module">Modules:</label>
+    <select name="module" id="module">
+      <option value="">--Please choose an option--</option>
+      <option value="get_ADobjects">get_ADobjects</option>
+      <option value="get_ADobject">get_ADobject</option>
+      <option value="add_ADobject">add_ADobject</option>
+      <option value="del_ADobject">del_ADobject</option>
+      <option value="get_member">get_member</option>
+      <option value="get_memberOf">get_memberOf</option>
+      <option value="add_ADobject_to_group">add_ADobject_to_group</option>
+      <option value="del_ADobject_from_group">del_ADobject_from_group</option>
+      <option value="modify_ADobject_attributes">modify_ADobject_attributes</option>
+      <option value="reset_password">reset_password</option>
+      <option value="enable_ADobject">enable_ADobject</option>
+      <option value="disable_ADobject">disable_ADobject</option>
+    </select>
+
+    <input type="text" placeholder="arg1" name="arg1">
+    <input type="text" placeholder="arg2" name="arg2">
+
+    <button type="submit">Execute</button>
+  </div>
+</form>
+
+{{ results }}
+
+{% endblock %}
