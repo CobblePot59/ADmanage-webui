@@ -1,8 +1,11 @@
 from flask import Flask
 from ldap3 import Server, Connection, ALL
+from flask_toastr import Toastr
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
+
+toastr = Toastr(app)
 
 sam = f"{app.config['LDAP_USERNAME']}@{app.config['LDAP_DOMAIN']}"
 dc_url = f"{app.config['LDAP_SCHEMA']}://{app.config['LDAP_HOST']}:{app.config['LDAP_PORT']}"
