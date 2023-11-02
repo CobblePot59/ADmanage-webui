@@ -39,9 +39,7 @@ def add_ADobject(ou, attributes):
         attributes['cn'] = cn
         attributes['userPrincipalName'] = f"{sam}@{domain}"
 
-        search_filter = f"(&(objectClass=user)(sAMAccountName={sam}))"
         conn.add(f"cn={cn},{ou}", attributes=attributes)
-
         reset_password(sam, password)
         modify_ADobject_attributes(sam, attributes={'userAccountControl': '512'})
 
@@ -51,7 +49,6 @@ def add_ADobject(ou, attributes):
         cn = attributes['cn']
         attributes['sAMAccountName'] = sam
 
-        search_filter = f"(&(objectClass=computer)(sAMAccountName={sam}))"
         conn.add(f"cn={cn},{ou}", attributes=attributes)
 
 
@@ -72,7 +69,6 @@ def add_ADobject(ou, attributes):
         cn = attributes['cn']
         attributes['sAMAccountName'] = sam
 
-        search_filter = f"(&(objectClass=group)(sAMAccountName={sam}))"
         conn.add(f"cn={cn},{ou}", attributes=attributes)
 
     return get_ADobject(sam)
