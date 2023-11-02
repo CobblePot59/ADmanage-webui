@@ -116,7 +116,6 @@ def del_ADobject_from_group(_object, group):
     group_dn = get_ADobject(group).distinguishedName
 
     conn.modify(group_dn[0], {'member': [(MODIFY_DELETE, _object_dn[0])]})
-
     return get_ADobject(group).member
 
 
@@ -128,7 +127,6 @@ def modify_ADobject_attributes(_object, attributes):
 
     for key, value in attributes.items():
         conn.modify(_object_dn[0], {key: [(MODIFY_REPLACE, [value])]})
-
     return get_ADobject(_object)
 
 
