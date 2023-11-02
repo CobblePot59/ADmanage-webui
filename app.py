@@ -7,7 +7,8 @@ app.config.from_pyfile('config.py')
 
 toastr = Toastr(app)
 
-sam = f"{app.config['LDAP_USERNAME']}@{app.config['LDAP_DOMAIN']}"
+domain = app.config['LDAP_DOMAIN']
+sam = f"{app.config['LDAP_USERNAME']}@{domain}"
 dc_url = f"{app.config['LDAP_SCHEMA']}://{app.config['LDAP_HOST']}:{app.config['LDAP_PORT']}"
 base_dn = app.config['LDAP_BASE_DN']
 server = Server(dc_url, get_info=ALL)
