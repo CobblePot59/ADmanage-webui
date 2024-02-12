@@ -1,28 +1,25 @@
 from flask import render_template, request
-from app import app
-from ADmanage import *
-
+from app import app, ad_client
 
 module_functions = {
-        'get_ADobjects': get_ADobjects,
-        'get_ADobject': get_ADobject,
-        'add_ADobject': add_ADobject,
-        'del_ADobject': del_ADobject,
-        'get_member': get_member,
-        'get_memberOf': get_memberOf,
-        'add_ADobject_to_group': add_ADobject_to_group,
-        'del_ADobject_from_group': del_ADobject_from_group,
-        'modify_ADobject_attributes': modify_ADobject_attributes,
-        'reset_password': reset_password,
-        'enable_ADobject': enable_ADobject,
-        'disable_ADobject': disable_ADobject
+        'get_ADobjects': ad_client.get_ADobjects,
+        'get_ADobject': ad_client.get_ADobject,
+        'add_ADobject': ad_client.add_ADobject,
+        'del_ADobject': ad_client.del_ADobject,
+        'get_member': ad_client.get_member,
+        'get_memberOf': ad_client.get_memberOf,
+        'add_ADobject_to_group': ad_client.add_ADobject_to_group,
+        'del_ADobject_from_group': ad_client.del_ADobject_from_group,
+        'modify_ADobject_attributes': ad_client.modify_ADobject_attributes,
+        'reset_password': ad_client.reset_password,
+        'enable_ADobject': ad_client.enable_ADobject,
+        'disable_ADobject': ad_client.disable_ADobject
     }
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-       return render_template('index.html')
+       return render_template('index.html', module_functions=list(module_functions.keys()))
 
     module = request.form['module']
     arg1 = request.form['arg1']

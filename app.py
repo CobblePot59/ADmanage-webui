@@ -1,18 +1,13 @@
 from flask import Flask
-from ldap3 import Server, Connection, ALL
 from flask_toastr import Toastr
+from ADmanage import ADclient
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
 toastr = Toastr(app)
 
-domain = app.config['LDAP_DOMAIN']
-sam = f"{app.config['LDAP_USERNAME']}@{domain}"
-dc_url = f"{app.config['LDAP_SCHEMA']}://{app.config['LDAP_HOST']}:{app.config['LDAP_PORT']}"
-base_dn = app.config['LDAP_BASE_DN']
-server = Server(dc_url, get_info=ALL)
-conn = Connection(server, user=sam, password=app.config['LDAP_PASSWORD'], auto_bind=app.config['LDAP_BIND_DIRECT_CREDENTIALS'])
+ad_client = ADclient(domain=app.config['LDAP_DOMAIN'], username=app.config['LDAP_USERNAME'], password=app.config['LDAP_PASSWORD'], dc_ip=app.config['LDAP_HOST'], base_dn=app.config['LDAP_BASE_DN'], secure=app.config['LDAPS'])
 
 from views import *
 
