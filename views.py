@@ -2,6 +2,11 @@ from flask import render_template, request
 from app import app, ad_client
 
 module_functions = {
+        'get_DNSentries': ad_client.get_DNSentries,
+        'get_DNSentry': ad_client.get_DNSentry,
+        'add_DNSentry': ad_client.add_DNSentry,
+        'modify_DNSentry': ad_client.modify_DNSentry,
+        'del_DNSentry': ad_client.del_DNSentry,
         'get_ADobjects': ad_client.get_ADobjects,
         'get_ADobject': ad_client.get_ADobject,
         'add_ADobject': ad_client.add_ADobject,
