@@ -1,5 +1,6 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from app import app, ad_client
+import json
 
 module_functions = {
         'get_DNSentries': ad_client.get_DNSentries,
@@ -32,9 +33,9 @@ def index():
     selected_function = module_functions.get(module, None)
 
     if arg1 and arg2:
-        results = str(selected_function(arg1, arg2))
+        results = json.dumps(selected_function(arg1, arg2), indent=4)
     elif arg1 and not arg2:
-        results = str(selected_function(arg1))
+        results = json.dumps(selected_function(arg1), indent=4)
     else:
-        results = list(selected_function())
-    return render_template('index.html', results=results)
+        results = json.dumps(selected_function(), indent=4)
+    return render_template('index.html', module_functions=list(module_functions.keys()), results=results)

@@ -4,3 +4,4 @@ LDAP_BASE_DN = 'DC=cobblepot59,DC=int'
 LDAPS = True
 LDAP_USERNAME = 'Administrator'
 LDAP_PASSWORD = 'Password1'
+LDAP_HASHES = ''
