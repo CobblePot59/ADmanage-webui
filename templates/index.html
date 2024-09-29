@@ -1,25 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="post">
-  <div class="container">
-    <img src="static/images/ADmanage.png" alt="ADmanage">
+<form action="" method="post" novalidate>
+  <div class="form-group">
+    <img src="{{ url_for('static', filename='images/ADmanage.png') }}" alt="ADmanage" class="img-fluid">
     <br><br>
-    <label for="module">Modules:</label>
-    <select name="module" id="module">
+
+    <label for="module" class="form-label">Modules :</label>
+    <select class="form-select module_function" id="module" name="module">
       <option value="">--Please choose an option--</option>
       {% for module_function in module_functions %}
         <option value="{{ module_function }}">{{ module_function }}</option>
       {% endfor %}
     </select>
+  </div>
 
-    <input type="text" placeholder="arg1" name="arg1">
-    <input type="text" placeholder="arg2" name="arg2">
-
-    <button type="submit">Execute</button>
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="arg1" id="arg1" name="arg1">
+      <span id="hint1" class="text-muted" style="display:none; font-style:italic;"></span>
+    </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="arg2" id="arg2" name="arg2">
+      <span id="hint2" class="text-muted" style="display:none; font-style:italic;"></span>
+    </div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary w-100">Execute</button>
+    </div>
   </div>
 </form>
-
+<br><br>
 <pre>{{ results }}</pre>
 
+<script>
+  $(document).ready(function() {
+    $('.module_function').select2();
+
+    let disableBothInputs = ['get_DNSentries', 'get_ADobjects'];
+    let disableArg2Only = ['get_DNSentry', 'del_DNSentry', 'get_ADobject', 'del_ADobject', 'get_members', 'get_memberOf', 'enable_ADobject', 'disable_ADobject'];
+
+    let hint1 = {
+      "get_DNSentry": "e.g. : quad9",
+      "add_DNSentry": "e.g. : quad9",
+      "modify_DNSentry": "e.g. : quad9",
+      "del_DNSentry": "e.g. : quad9",
+      "get_ADobject": "e.g. : Administrator",
+      "add_ADobject": "e.g. : OU=test,DC=cobblepot59,DC=int",
+      "del_ADobject": "e.g. : jbower",
+      "get_member": "e.g. : Administrators",
+      "get_memberOf": "e.g. : Administrator",
+      "add_ADobject_to_group": "e.g. : jbower",
+      "del_ADobject_from_group": "e.g. : jbower",
+      "modify_ADobject_attributes": "e.g. : jbower",
+      "reset_password": "e.g. : jbower",
+      "enable_ADobject": "e.g. : jbower",
+      "disable_ADobject": "e.g. : jbower-pc$",
+    };
+
+    let hint2 = {
+      "add_DNSentry": "e.g. : 149.112.112.112",
+      "modify_DNSentry": "e.g. : 149.112.112.112",
+      "add_ADobject": "e.g. : {'objectClass': 'user', 'givenName': 'Jack', 'sn': 'Bower', 'password': 'Password1'}",
+      "add_ADobject_to_group": "e.g. : test",
+      "del_ADobject_from_group": "e.g. : test",
+      "modify_ADobject_attributes": "e.g. : {'mail': 'jack.bower@cobblepot59.int'}",
+      "reset_password": "e.g. : Password2",
+    };
+
+    $('#module').change(function() {
+      let selectedFunction = $(this).val();
+      
+      if (disableBothInputs.includes(selectedFunction)) {
+        $('#arg1').prop('disabled', true);
+        $('#arg2').prop('disabled', true);
+      } else if (disableArg2Only.includes(selectedFunction)) {
+        $('#arg1').prop('disabled', false);
+        $('#arg2').prop('disabled', true);
+      } else {
+        $('#arg1').prop('disabled', false);
+        $('#arg2').prop('disabled', false);
+      }
+
+      $('#hint1').text(hint1[selectedFunction] || '').show();
+      $('#hint2').text(hint2[selectedFunction] || '').show();
+    });
+  });
+</script>
 {% endblock %}

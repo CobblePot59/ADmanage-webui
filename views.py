@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request
 from app import app, ad_client
 import json
 
@@ -27,9 +27,9 @@ def index():
     if request.method == 'GET':
        return render_template('index.html', module_functions=list(module_functions.keys()))
 
-    module = request.form['module']
-    arg1 = request.form['arg1']
-    arg2 = request.form['arg2']
+    module = request.form.get('module')
+    arg1 = request.form.get('arg1')
+    arg2 = request.form.get('arg2')
     selected_function = module_functions.get(module, None)
 
     if arg1 and arg2:

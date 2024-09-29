@@ -4,23 +4,20 @@
     <meta charset="utf-8">
     <title>ADmanage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=,shrink-to-fit=no">
-    <link rel="icon" href="static/img/favicon.png" type="image/x-icon">
-    
-    <link rel="stylesheet" href="static/plugins/bootstrap/bootstrap-icons.css">
-    <link rel="stylesheet" href="static/plugins/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="static/plugins/toastr/toastr.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
     {% block headers %}{% endblock %}
 
-    <script src="static/plugins/jquery/jquery.js"></script>
-    <script src="static/plugins/jquery/jquery-ui.js"></script>
-    <script src="static/plugins/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="static/plugins/toastr/toastr.min.js"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/select2/select2.min.js') }}"></script>
     {% block scripts %}{% endblock %}
   </head>
   <body>
     <div class="container">
       {% block content %}{% endblock %}
     </div>
-    {{ toastr.message() }}
   </body>
 </html>
